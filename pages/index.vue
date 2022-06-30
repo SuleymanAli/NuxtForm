@@ -3,8 +3,8 @@
     <div class="row py-5">
       <!-- Success Message -->
       <transition name="fade">
-        <div v-if="submitted" class="col-lg-8 m-auto">
-          <div class="h4 text-center mb-3">
+        <div v-if="submitted" class="col-lg-10 m-auto">
+          <div class="h2 text-center text-white mb-3">
             Thank you! Your request has been submitted.
           </div>
         </div>
@@ -12,28 +12,29 @@
       <!-- Error General -->
       <div
         v-if="errors.all"
-        class="col-lg-8 m-auto error d-flex align-items-end justify-content-between"
+        class="col-lg-8 m-auto"
       >
-        <p class="mb-0">
-          Something went wrong.
-          <span v-if="errors.network">
-            {{ errors.network }}
+        <div class="error d-flex justify-content-between mb-4">
+          <p class="mb-0">
+            Something went wrong.
+            <span v-if="errors.network">
+              {{ errors.network }}
+            </span>
+            <span v-else> Please resolve the errors below. </span>
+          </p>
+          <span
+            class="close d-flex align-items-center"
+            @click="errors.all = false"
+          >
+            <b-icon-x scale="1.6"></b-icon-x>
           </span>
-          <span v-else> Please resolve the errors below. </span>
-        </p>
-        <span
-          class="close d-flex align-items-center"
-          @click="errors.all = false"
-        >
-          <b-icon-x scale="1.6"></b-icon-x>
-        </span>
+        </div>
       </div>
       <!-- Form -->
       <transition name="fade">
         <div v-if="!submitted" class="col-lg-8 m-auto">
           <ValidationObserver ref="form">
             <form class="form row" @submit.prevent="handleForm">
-             
               <!-- 1. Bot Url -->
               <div class="col-lg-12 mb-4">
                 <ValidationProvider v-slot="{ errors }" rules="required">
@@ -173,7 +174,7 @@
               </div>
 
               <!-- 7. File Url -->
-              <div class="col-lg-12 mb-4">
+              <div class="col-lg-12 mb-3">
                 <ValidationProvider v-slot="{ errors }" rules="required">
                   <div
                     class="form__input"
@@ -196,7 +197,7 @@
               </div>
               <!-- Submit Button -->
               <div class="col-lg-12">
-                <div class="d-flex mt-4">
+                <div class="d-flex">
                   <button class="mx-auto">Submit Form</button>
                 </div>
               </div>
@@ -334,6 +335,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(90.52deg, #6295ff 26.89%, #4ddce0 98.03%);
 }
 
 .close {
@@ -342,7 +344,17 @@ body {
   font-size: 24px;
 }
 
+.error {
+  background: #fff;
+  border-radius: 5px;
+  padding: 16px;
+}
+
 .form {
+  @media (max-width: 576px) {
+    margin: 0 15px;
+  }
+
   padding: 32px 12px;
   border-radius: 15px;
   background: #ffffff;
