@@ -5,15 +5,12 @@
       <transition name="fade">
         <div v-if="submitted" class="col-lg-10 m-auto">
           <div class="h2 text-center text-white mb-3">
-            Thank you! Your request has been submitted.
+            Call request has been sent
           </div>
         </div>
       </transition>
       <!-- Error General -->
-      <div
-        v-if="errors.all"
-        class="col-lg-8 m-auto"
-      >
+      <div v-if="errors.all" class="col-lg-8 m-auto">
         <div class="error d-flex justify-content-between mb-4">
           <p class="mb-0">
             Something went wrong.
@@ -196,11 +193,17 @@
                 </ValidationProvider>
               </div>
               <!-- Submit Button -->
-              <div class="col-lg-12">
+              <div class="col-lg-2 d-flex align-items-center mb-3 mb-lg-0">
+                <span class="refresh h2" @click="resetForm">
+                  <b-icon-arrow-clockwise></b-icon-arrow-clockwise>
+                </span>
+              </div>
+              <div class="col-lg-8">
                 <div class="d-flex">
                   <button class="mx-auto">Submit Form</button>
                 </div>
               </div>
+              <div class="col-lg-2"></div>
             </form>
           </ValidationObserver>
         </div>
@@ -259,6 +262,18 @@ export default {
         .then((response) => response.text())
         .then((result) => console.log(result))
         .catch((error) => console.log("error", error));
+    },
+    resetForm() {
+      this.bot_url = "";
+      this.number_to = "";
+      this.number_from = "";
+      this.transaction_id = "";
+      this.transfer_sip_addr = "";
+      this.carrier_gw = "";
+      this.vm_drop_fileurl = "";
+      this.errors.all = false;
+      this.errors.network = "";
+      this.$refs.form.reset()
     },
     handleForm() {
       this.$refs.form.validate().then(async (success) => {
@@ -348,6 +363,14 @@ body {
   background: #fff;
   border-radius: 5px;
   padding: 16px;
+}
+
+.refresh {
+  // background: greenyellow;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+  margin-bottom: 0;
 }
 
 .form {
