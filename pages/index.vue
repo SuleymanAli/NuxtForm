@@ -3,7 +3,7 @@
     <div class="row py-5">
       <!-- Success Message -->
       <transition name="fade">
-        <div v-if="submitted" class="col-lg-8 mx-auto">
+        <div v-if="submitted" class="col-lg-8 m-auto">
           <div class="h4 text-center mb-3">
             Thank you! Your request has been submitted.
           </div>
@@ -12,7 +12,7 @@
       <!-- Error General -->
       <div
         v-if="errors.all"
-        class="col-lg-8 mx-auto error d-flex justify-content-between my-4"
+        class="col-lg-8 m-auto error d-flex align-items-end justify-content-between"
       >
         <p class="mb-0">
           Something went wrong.
@@ -30,9 +30,10 @@
       </div>
       <!-- Form -->
       <transition name="fade">
-        <div v-if="!submitted" class="col-lg-8 mx-auto">
+        <div v-if="!submitted" class="col-lg-8 m-auto">
           <ValidationObserver ref="form">
             <form class="form row" @submit.prevent="handleForm">
+             
               <!-- 1. Bot Url -->
               <div class="col-lg-12 mb-4">
                 <ValidationProvider v-slot="{ errors }" rules="required">
@@ -290,8 +291,8 @@ export default {
         fetch("/call/", requestOptions)
           .then((response) => response.text())
           .then((result) => {
-            console.log(myHeaders)
-            console.log(result)
+            console.log(myHeaders);
+            console.log(result);
             if (result === '{"status":"initiated"}') {
               this.submitted = true;
               this.errors.all = false;
@@ -302,7 +303,7 @@ export default {
           })
           .catch((e) => {
             this.errors.all = true;
-            this.errors.network = `${e.statusText}`
+            this.errors.network = `${e.statusText}`;
           });
       });
     },
@@ -310,7 +311,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 $green: #bad535;
 $brown: #4a4a42;
 $light-brown: #75756e;
@@ -328,6 +329,13 @@ $dark-green: #46661d;
 $brandon-grotesque: "Brandon Grotesque";
 $classico-urw: "Classico URW";
 
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .close {
   cursor: pointer;
   color: #dc3545;
@@ -335,6 +343,14 @@ $classico-urw: "Classico URW";
 }
 
 .form {
+  padding: 32px 12px;
+  border-radius: 15px;
+  background: #ffffff;
+  box-shadow: 0px 0px 20px 20px rgba(0, 0, 0, 0.05);
+  .header {
+    background: linear-gradient(90.52deg, #6295ff 26.89%, #4ddce0 98.03%);
+  }
+
   label,
   input {
     font-size: 21px;
