@@ -55,7 +55,7 @@ export default {
 
   proxy: {
     "/call/": {
-      target: "http://45.33.112.248:32050/testcall/967843445",
+      target: "http://45.33.112.248:32050/testcall/",
       pathRewrite: { "^/call/": "" },
     },
   },

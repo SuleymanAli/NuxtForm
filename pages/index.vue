@@ -230,6 +230,15 @@ export default {
     transfer_sip_addr: "",
     carrier_gw: "",
     vm_drop_fileurl: "",
+
+    // bot_url: "a967843445:5005",
+    // number_to: "+17862445375",
+    // number_from: "1527785692",
+    // transaction_id: "hgfdhgf",
+    // transfer_sip_addr: "1208@141.95.204.28:4099",
+    // carrier_gw: "141.95.204.26:8062",
+    // vm_drop_fileurl: "http://55.187.149.196:5533/967843445/vm_file.wav",
+
     submitted: false,
     errors: {
       all: false,
@@ -258,7 +267,7 @@ export default {
         redirect: "follow",
       };
 
-      fetch("/call/", requestOptions)
+      fetch("/call/967843445", requestOptions)
         .then((response) => response.text())
         .then((result) => console.log(result))
         .catch((error) => console.log("error", error));
@@ -273,7 +282,7 @@ export default {
       this.vm_drop_fileurl = "";
       this.errors.all = false;
       this.errors.network = "";
-      this.$refs.form.reset()
+      this.$refs.form.reset();
     },
     handleForm() {
       this.$refs.form.validate().then(async (success) => {
@@ -304,7 +313,9 @@ export default {
           redirect: "follow",
         };
 
-        fetch("/call/", requestOptions)
+        /* proxy (http://45.33.112.248:32050/testcall/) + bot_url */
+        fetch("/call/" + this.bot_url, requestOptions)
+        // fetch("/call/"+  this.bot_url.match(/[0-9]+/gim)[0], requestOptions)
           .then((response) => response.text())
           .then((result) => {
             console.log(myHeaders);
